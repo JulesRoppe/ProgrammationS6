@@ -49,9 +49,14 @@ class Tree:
             return False
         else:
             for i in range(len(self.children)):
-                if other.child(i).__str__().__eq__(self.child(i).__str__()) == False:
+                if not other.child(i).__str__().__eq__(self.child(i).__str__()):
                     return False
         return True
+
+    def deriv(self, var: str):
+
+        return
+
 
 if __name__ == '__main__':
     A = Tree('f', Tree('a', Tree('b', Tree('e')), Tree('c')), Tree('b'))
@@ -59,3 +64,5 @@ if __name__ == '__main__':
     print(id(A), id(B))
     print(A.__str__())
     print(A.__eq__(B))
+
+    polynom = Tree()
