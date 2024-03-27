@@ -55,6 +55,11 @@ class Tree:
 
     def deriv(self, var: str):
 
+        noeud = self.__label__()
+        for i in range(len(self.children)):
+            noeud = self.child(i)
+            if self.child(i) == '+' or '*':
+                noeud = self.child(i)
         return
 
 
