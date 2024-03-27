@@ -27,7 +27,7 @@ class Fraction:
     def __add__(self, other):
         num = self.num * other.denom + self.denom * other.num
         denom = self.denom * other.denom
-        return Fraction2(num, denom)
+        return Fraction(num, denom)
 
     def __mul__(self, other):
         num = self.num * other.num
@@ -38,7 +38,7 @@ class Fraction:
         pgcd = math.gcd(self.num, self.denom)
         num = self.num // pgcd
         denom = self.denom // pgcd
-        return Fraction2(num, denom)
+        return Fraction(num, denom)
 
 if __name__ == '__main__':
     frac = Fraction(5,3)
