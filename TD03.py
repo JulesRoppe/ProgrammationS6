@@ -1,4 +1,6 @@
 """ TD03 """
+import ctypes.macholib.dyld
+
 
 class Tree:
     def __init__(self, __label, *__children):
@@ -18,17 +20,14 @@ class Tree:
         return self.__children[i]
 
     def is_leaf(self):
-        if len(self.children()) == 0:
-            return True
-        else:
-            return False
+        return self.nb_children() == 0
 
     def depth(self):
         rep = []
         if self.is_leaf():
             rep.append(0)
         else:
-            for i in range(len(self.children())):
+            for i in range(self.nb_children()):
                 rep.append(self.child(i).depth() + 1)
         return max(rep)
 
@@ -44,26 +43,42 @@ class Tree:
             rep += ")"
             return rep
 
-    def __eq__(self, other: object):
+    def __eq__(self, other):
         if len(self.children()) != len(other.children()):
             return False
-        else:
-            for i in range(len(self.children())):
-                if not other.child(i).__str__().__eq__(self.child(i).__str__()):
-                    return False
+        for i in range(len(self.children())):
+            if not other.child(i).__str__().__eq__(self.child(i).__str__()):
+                return False
         return True
 
-    def deriv(self, var):
-        noeud = self.label()
-        for i in range(len(self.children())):
-            if self.child(i) == '+' or '*':
-                noeud = self.child(i).deriv(var)
-        return
+    def deriv(self, var: str):
+        if self.depth() == 0:
+            if self.label() != var:
+                return Tree(0)
+            return Tree(1)
+        if self.label() == '+':
+            return Tree('+', self.child(0).deriv(var), self.child(1).deriv(var))
+        if self.label() == '*':
+            return Tree('+', Tree('*', Tree(self.child(0).deriv(var)), Tree(self.child(1))), Tree('*', Tree(self.child(0)), Tree(self.child(1).deriv(var))))
+
+    def substitute(self, t1, t2):
+        """ non fini """
+        if self == t1:
+            return t2
+        for i in range(self.nb_children()):
+            if self.child(i) == t1:
+                self.__children[i] = t2
+            else:
+                self.child(i).substitute(t1, t2)
+        return self.__str__()
 
 
 if __name__ == '__main__':
-    A = Tree('f', Tree('a', Tree('b', Tree('e')), Tree('c')), Tree('b'))
-    B = Tree('f', Tree('a', Tree('b', Tree('e')), Tree('c')), Tree('b'))
-    print(id(A), id(B))
-    print(A.__str__())
-    print(A.__eq__(B))
+    A = Tree('+', Tree('*', Tree(3), Tree('*', Tree('X'), Tree('X'))), Tree('*', Tree('2'), Tree('X')))
+    B = Tree('*', Tree(5), Tree('X'))
+    #print(id(A), id(B))
+    print(B.__str__())
+    #print(A.__eq__(B))
+    print(A.deriv('X'))
+    print(B.depth())
+    print(B.substitute(Tree('X'), Tree(3)))
