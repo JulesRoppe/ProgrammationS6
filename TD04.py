@@ -48,8 +48,14 @@ class Hashtable:
         plt.show()
 
     def resize(self):
-        self.table = [None for i in range(2*len(self.table))]
-        return self.table
+        new_table = Hashtable(self.hash, 2*len(self.table))
+        for index in range(len(self.table)):
+            if self.table[index] != None:
+                for j in range(len(self.table[index])):
+                    key = self.table[index][j][0]
+                    new_table.put(key, self.hash(key))
+        self.table = new_table.table
+        return self
             
 def hash_naive(key):
     h = 0
@@ -69,7 +75,6 @@ if __name__ == '__main__':
         ht.put(mot, len(mot))
         if i > 1.2*len(ht.table):
             ht.resize()
-            i = 0
 
     ht.repartition()
 
