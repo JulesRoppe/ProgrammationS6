@@ -15,6 +15,7 @@ class Cible:
         self.salve = nombre_tir
 
     def tir(self, event):
+        #J'ai rajouté l'argument' "event" car le key binding nécessite un argument de plus (une erreur m'était retournée si non).
         if self.salve < 5:
             x, y = randint(0,400), randint(0,400)
             cercle(x, y, 15, "black")
