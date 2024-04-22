@@ -21,7 +21,7 @@ class Cible:
             self.salve += 1
             self.score += score_tir(x,y)
             ttk.Label(root, text =f"score de {self.score} points", width=17+self.score//10).grid(row=1,column=1)
-            #Je n'ai pas trouvé comment actualiser le Label... Cette technique fonctionne bie tout de même.
+            #Je n'ai pas trouvé comment actualiser le Label... Cette technique fonctionne bien tout de même.
         return
 
 #Effectue une rafale de 5-(le nombre de tirs déjà effectués grâce à "<f>") tirs
@@ -32,6 +32,8 @@ class Cible:
                 self.tir(event)
          return
 
+
+
 #Comptabilise le score d'un tir:
 def score_tir(x,y):
     score_balle = 0
@@ -40,7 +42,6 @@ def score_tir(x,y):
         if (r-30)**2 <= (x-200)**2 + (y-200)**2 <= r**2:
             score_balle = i+1
     return score_balle
-
 
 def cercle(x,y,r,couleur):
     points = ((x-r, y-r), (x+r, y+r))
