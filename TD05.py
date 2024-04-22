@@ -73,7 +73,7 @@ Master = Cible(0, 0)
 ttk.Label(root, text=f"score de 0 points", width=17).grid(row=1,column=1)
 
 ttk.Button(root, text="Feu!", width=10, command=Master.rafale).grid(row=1,column=0,sticky=tk.W)
-#On tire une rafale de 5 tirs d'affilé (je n'ai pas bine compris si c'était ce que l'énoncé entendait par "répéter 5 fois".
+#On tire une rafale de 5 tirs d'affilé (je n'ai pas bien compris si c'était ce que l'énoncé entendait par "répéter 5 fois".
 
 root.bind("<f>", Master.tir)
 #On effectue un tir à la fois en appuyant sur "f"
