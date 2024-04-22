@@ -24,6 +24,7 @@ class Cible:
             #Je n'ai pas trouvé comment actualiser le Label... Cette technique fonctionne bie tout de même.
         return
 
+#Effectue une rafale de 5-(le nombre de tirs déjà effectués grâce à "<f>"
     def rafale(self):
          event = 0 #Pour eviter l'erreur car "rafale" ne nécessite pas de key binding donc pas d'event
          for i in range(5):
@@ -31,7 +32,7 @@ class Cible:
                 self.tir(event)
          return
 
-
+#Comptabilise le score d'un tir:
 def score_tir(x,y):
     score_balle = 0
     for i in range(0,6):
@@ -46,6 +47,8 @@ def cercle(x,y,r,couleur):
     canvas.create_oval(*points, outline='red', fill = couleur)
     return
 
+
+#Création de la cible:
 for i in range(0,6):
     x,y = 200,200
     r = 30*(6-i)
@@ -56,19 +59,23 @@ for i in range(0,6):
         cercle(x,y,r,"ivory")
         canvas.create_text(x,y-r+15, text=f"{i+1}", font = ('Times', '24', 'bold'), fill = 'red')
 
-Master = Cible(0, 0)
 canvas.create_line(0,200,400,200,fill='red')
 canvas.create_line(200,0,200,400,fill='red')
 canvas.grid(row=0, column=0, columnspan=3)
+
+
+
+Master = Cible(0, 0)
 
 ttk.Label(root, text=f"score de 0 points", width=17).grid(row=1,column=1)
 
 ttk.Button(root, text="Feu!", width=10, command=Master.rafale).grid(row=1,column=0,sticky=tk.W)
 #On tire une rafale de 5 tirs d'affilé (je n'ai pas bine compris si c'était ce que l'énoncé entendait par "répéter 5 fois".
 
-ttk.Button(root, text="Quitter", width=10, command=root.destroy).grid(row=1,column=2, sticky = tk.E)
-
 root.bind("<f>", Master.tir)
 #On effectue un tir à la fois en appuyant sur "f"
+
+ttk.Button(root, text="Quitter", width=10, command=root.destroy).grid(row=1,column=2, sticky = tk.E)
+
 
 root.mainloop()
