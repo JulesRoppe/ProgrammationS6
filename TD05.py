@@ -68,7 +68,7 @@ canvas.grid(row=0, column=0, columnspan=3)
 
 
 Master = Cible(0, 0)
-#On débute avec un score de 0 points et un  nombre de tir de 0 points
+#On débute avec un score de 0 points et un nombre de tir de 0
 
 ttk.Label(root, text=f"score de 0 points", width=17).grid(row=1,column=1)
 
