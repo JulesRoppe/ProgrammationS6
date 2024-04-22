@@ -24,7 +24,7 @@ class Cible:
             #Je n'ai pas trouvé comment actualiser le Label... Cette technique fonctionne bie tout de même.
         return
 
-#Effectue une rafale de 5-(le nombre de tirs déjà effectués grâce à "<f>"
+#Effectue une rafale de 5-(le nombre de tirs déjà effectués grâce à "<f>") tirs
     def rafale(self):
          event = 0 #Pour eviter l'erreur car "rafale" ne nécessite pas de key binding donc pas d'event
          for i in range(5):
