@@ -51,15 +51,16 @@ class Tree:
                 return False
         return True
 
-    def deriv(self, var: str):
+    def deriv(self, variable: str):
         if self.depth() == 0:
-            if self.label() != var:
+            if self.label() != variable:
                 return Tree(0)
             return Tree(1)
         if self.label() == '+':
-            return Tree('+', self.child(0).deriv(var), self.child(1).deriv(var))
+            return Tree('+', self.child(0).deriv(variable), self.child(1).deriv(variable))
         if self.label() == '*':
-            return Tree('+', Tree('*', Tree(self.child(0).deriv(var)), Tree(self.child(1))), Tree('*', Tree(self.child(0)), Tree(self.child(1).deriv(var))))
+            return Tree('+', Tree('*', Tree(self.child(0).deriv(variable)), Tree(self.child(1))),
+                        Tree('*', Tree(self.child(0)), Tree(self.child(1).deriv(variable))))
 
     def substitute(self, t1, t2):
         """ non fini """
@@ -67,18 +68,21 @@ class Tree:
             return t2
         for i in range(self.nb_children()):
             if self.child(i) == t1:
-                self.__children[i] = t2
+                return Tree(self.label(), self.children())
             else:
-                self.child(i).substitute(t1, t2)
+                return self.child(i).substitute(t1, t2)
         return self.__str__()
 
 
 if __name__ == '__main__':
     A = Tree('+', Tree('*', Tree(3), Tree('*', Tree('X'), Tree('X'))), Tree('*', Tree('2'), Tree('X')))
     B = Tree('*', Tree(5), Tree('X'))
+    C = Tree('a')
+    D = Tree('X')
     #print(id(A), id(B))
     print(B.__str__())
+    print(B.depth())
     #print(A.__eq__(B))
     print(A.deriv('X'))
-    print(B.depth())
-    print(B.substitute(Tree('X'), Tree(3)))
+    print(Tree('+', Tree('a'), Tree('X')).deriv('X'))
+    B.substitute(C, D)

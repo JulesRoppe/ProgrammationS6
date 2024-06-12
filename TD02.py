@@ -1,17 +1,19 @@
 """ TD02 de Programmation et Structure de Données S6 """
 import math
 
+
+""" Cours 02"""
+
 class counter:
-    """ Cours 02"""
     def __init__(self):
         self.value = 0
 
 if __name__ == '__main__':
     c = counter()
-    print(c.value)
+    # print(c.value)
 
 a = 5
-print(f"my value is {c.value}")
+# print(f"my value is {c.value}")
 
 
 """ Exercice 1 """
@@ -21,7 +23,7 @@ class Fraction:
         self.num = num
         self.denom = denom
 
-    def toString(self):
+    def __str__(self):
         return f"{self.num}/{self.denom}"
 
     def __add__(self, other):
@@ -42,12 +44,12 @@ class Fraction:
 
 if __name__ == '__main__':
     frac = Fraction(5,3)
-    print(frac.value)
+    print(frac)
     f1 = Fraction(10, 2)
     f2 = Fraction(10, 2)
-    # g = f1.__add__(f2)
-    # print(g.toString())
-    # print(f1.simplify())
+    g = f1.__add__(f2)
+    print(g)
+    print(f1.simplify(), "\n")
 
 
 """ Exercice 3 """
@@ -58,9 +60,9 @@ def H(n):
     for i in range(2, n + 1):
         harmonique = harmonique.__add__(Fraction(1, i))
         harmonique = harmonique.simplify()
-    return harmonique.toString()
+    return harmonique
 
-#print(H(5))
+print(H(5))
 
 
 """ Exercice 4 """
@@ -76,9 +78,9 @@ def Liebnitz(n):
     for i in range(1, n + 1):
         lieb = lieb.__add__(Fraction((-1)**i, 2*i+1))
         lieb = lieb.simplify()
-    return lieb.toString()
+    return lieb
 
-#print(Liebnitz(7))
+print(Liebnitz(7), "\n")
 
 
 """ Exercice 5 """
@@ -143,9 +145,9 @@ class Polynomial:
 if __name__ == '__main__':
     P1 = Polynomial([2,4,4])
     P2 = Polynomial([2,1,2,2,6,2,21])
-    #print(P1)
-    #print(deriv(P1))
-    #print(integrate(P1, 1))
+    print(P1)
+    print(P1.deriv())
+    print(P1.integrate(1))
 
 
 

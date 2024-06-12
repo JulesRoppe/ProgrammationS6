@@ -12,6 +12,7 @@ class Hashtable:
     def __init__(self, hash, N):
         self.hash = hash
         self.table = []
+        self.__length = N
         for i in range(N):
             self.table.append(None)
 
@@ -43,11 +44,12 @@ class Hashtable:
         for index in range(N):
             if self.table[index] != None:
                 y[index] = len(self.table[index])
+        print(y)
         width = 1 / 1.5
         plt.bar(x, y, width, color="blue")
         plt.show()
 
-    def resize(self):
+    def resize2(self):
         new_table = Hashtable(self.hash, 2*len(self.table))
         for index in range(len(self.table)):
             if self.table[index] != None:
@@ -56,7 +58,27 @@ class Hashtable:
                     new_table.put(key, self.hash(key))
         self.table = new_table.table
         return self
-            
+
+
+    def resize (self) :
+        """double the length of the hashtable"""
+        new_hashtable = [[] for i in range (self.__length * 2)]
+        hash_function = self.hash
+        length = self.__length * 2
+        for index in range (len(self.table)):
+            if self.table[index] != None:
+                for couple in self.table[index]:
+                    new_index = hash_function(couple[0])%length
+                    Test = True
+                    for i, item in enumerate(new_hashtable[new_index]):
+                        if item[0] == couple[0]:
+                            new_hashtable[new_index][i] = couple
+                            Test = False
+                    if Test :
+                        new_hashtable[new_index].append(couple)
+        self.__table = new_hashtable
+        self.__length = length
+
 def hash_naive(key):
     h = 0
     for i in key:
@@ -77,5 +99,6 @@ if __name__ == '__main__':
             ht.resize()
 
     ht.repartition()
+
 
 
