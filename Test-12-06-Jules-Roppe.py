@@ -55,7 +55,7 @@ def nbe_carrefour_doublon(labyrinthe, start, chemin):
     return counter_doublon
 
 
-print(chemin_labyrinthe(exemple_7_carrefour, 2, [1, 1, 0, 1, 0, 1, 2]))
+print(nbe_carrefour_doublon(exemple_7_carrefour, 2, [1, 1, 0, 1, 0, 1, 2]))
 
 """ Question 4 """
 
